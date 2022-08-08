@@ -1,38 +1,45 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ListaEjemplo } from './ListaEjemplo';
 
 export const FormEjemplo = () => {
   const [nombre, cambiarNombre] = useState('');
   const [correo, cambiarCorrreo] = useState('');
+  const [data, setData] = useState([]);
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const data = {
+    const infoUsuario = {
       nombre: nombre,
       correo: correo,
     };
-    console.log(data);
+    setData([...data, infoUsuario]);
+    cambiarNombre('');
+    cambiarCorrreo('');
   };
 
   return (
-    <form action='' onSubmit={onSubmit}>
-      <Input
-        type='text'
-        name='nombre'
-        value={nombre}
-        onChange={(e) => cambiarNombre(e.target.value)}
-        placeholder='Nombre'
-      />
-      <Input
-        type='email'
-        name='correo'
-        value={correo}
-        onChange={(e) => cambiarCorrreo(e.target.value)}
-        placeholder='Correo'
-      />
+    <div>
+      <form action='' onSubmit={onSubmit}>
+        <Input
+          type='text'
+          name='nombre'
+          value={nombre}
+          onChange={(e) => cambiarNombre(e.target.value)}
+          placeholder='Nombre'
+        />
+        <Input
+          type='email'
+          name='correo'
+          value={correo}
+          onChange={(e) => cambiarCorrreo(e.target.value)}
+          placeholder='Correo'
+        />
 
-      <Boton type='sumbit'>Agregar</Boton>
-    </form>
+        <Boton type='sumbit'>Agregar</Boton>
+      </form>
+      <ListaEjemplo data={data} />
+    </div>
   );
 };
 
